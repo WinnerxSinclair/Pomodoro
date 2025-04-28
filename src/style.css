@@ -1,0 +1,190 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 500;
+  
+  color-scheme: light dark;
+
+  --text-color: #242424;
+  --bg-color: #fff6ee;
+  --accent-dark: rgb(17, 19, 46);
+  --accent-light: rgba(17, 19, 46, 0.315);
+
+  --accent-bg: white;
+
+
+  --input-bg: white;
+
+
+  --btn-bg-primary: #f3f4f6;
+  --btn-color-primary: rgba(0, 0, 0, 0.87);
+
+  --btn-has-svg-bg: #f3f4f6;
+
+  --svg-fill: black;
+
+  --outline-primary: rgb(0, 0, 0);
+  --outline-thickness: 1px;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:root.dark{
+  --text-color: rgba(255, 255, 255, 0.87);
+  --bg-color: #242424;
+  --accent-bg: 	#383838;
+  --input-bg: #2C2C2C;
+  --outline-primary: #444;
+  --btn-bg-primary: #5a5a5a;
+  --btn-has-svg-bg: #444444;
+  --svg-fill: rgba(255, 255, 255, 0.87);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: background .3s ease, color .3s ease;
+}
+
+body{
+  min-height: 100vh;
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+ul{
+  
+  list-style-type: disc;
+}
+ul li::marker{
+  color:rgb(255, 170, 41);
+}
+
+/* forms */
+input{
+  border: var(--outline-thickness) solid var(--outline-primary);
+  background: var(--input-bg);
+  color: var(--text-color);
+  padding: .3em;
+  border-radius: .2rem;
+  /* background:rgba(245, 184, 92, 0.096); */
+}
+
+
+fieldset{
+  border:none;
+}
+textarea{
+  padding: .7rem;
+  resize:none;
+}
+
+input[type="checkbox"]{
+  scale: 1.2;
+  margin-top: .2rem;
+  margin-left: .5rem;
+}
+
+/* flex */
+.flex{
+  display:flex;
+}
+.jc{
+  justify-content: center;
+}
+.ac{
+  align-items: center;
+}
+.jsb{
+  justify-content: space-between;
+}
+.grow{
+  flex-grow: 1;
+}
+.col{
+  flex-direction: column;
+}
+.gap{
+  gap: 1rem;
+}
+.gap-4{
+  gap: 2rem;
+}
+/* buttons */
+button {
+  border:none;
+  padding: 0.5em;
+  background-color: var(--btn-bg-primary); 
+ 
+  color: inherit;
+  border-radius: 9999px; 
+  font-weight: 500;
+  font-family: sans-serif;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  transition: background 0.2s ease;
+}
+
+button:has(svg){
+  background-color: var(--btn-has-svg-bg);
+}
+
+
+button:hover {
+  background-color: #e5e7eb;
+}
+
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none; 
+}
+
+
+/* text */
+.tac{
+  text-align:center;
+}
+
+
+/* positioning */
+.rel{
+  position: relative;
+}
+.abs{
+  position: absolute;
+}
+
+
+/* margin */
+
+.m0a{
+  margin: 0 auto;
+}
+.mt-3{
+  margin-top: 1rem;
+}
+.m0{
+  margin: 0;
+}
+
+
+/* padding */
+.pad{
+  padding: 1rem;
+}
+
+
+.fs-300{
+  font-size: 2rem;
+}
+
+
+
+svg{
+  fill: var(--svg-fill);
+}
