@@ -1,7 +1,7 @@
 <template>
   <Transition>
     <div class="outer" v-if="showModal">
-      <div class="inner" @click.stop>
+      <div class="inner" @click.stop @mousedown.stop>
         <slot />
       </div>
       <div class="x"></div>

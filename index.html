@@ -17,8 +17,9 @@
       ? 'dark'
       : 'light';
       
-      document.documentElement.classList.add(stored || system);
+      document.documentElement.classList.add(stored || system || '');
       import('/src/main.js')
+
     </script>
   </body>
 </html>

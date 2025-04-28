@@ -4,7 +4,7 @@
       <label for="name">Set Name</label>
       <input v-focus v-model="form.name" type="text" id="name" minlength="1" maxlength="99" required />
     </div>
-    <button>Create</button>
+    <button>{{ buttonText || 'Create' }}</button>
   </form>
 </template>
 
@@ -14,7 +14,8 @@ import { ref } from 'vue'
 const emit = defineEmits(['submit']);
 
 const props = defineProps({
-  setName: String
+  setName: String,
+  buttonText: String
 })
 const form = ref({
   name: props.setName || '',

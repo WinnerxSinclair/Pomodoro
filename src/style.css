@@ -18,6 +18,8 @@
 
   --btn-bg-primary: #f3f4f6;
   --btn-color-primary: rgba(0, 0, 0, 0.87);
+  --btn-hover-primary: rgba(170, 170, 170, 0.445);
+
 
   --btn-has-svg-bg: #f3f4f6;
 
@@ -41,6 +43,7 @@
   --btn-bg-primary: #5a5a5a;
   --btn-has-svg-bg: #444444;
   --svg-fill: rgba(255, 255, 255, 0.87);
+  --btn-hover-primary: #9c9c9c;
 }
 
 * {
@@ -134,7 +137,7 @@ button:has(svg){
 
 
 button:hover {
-  background-color: #e5e7eb;
+  background-color: var(--btn-hover-primary);
 }
 
 
