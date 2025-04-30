@@ -2,7 +2,15 @@
   <form @submit.prevent="submitForm">
     <div>
       <label for="name">Set Name</label>
-      <input v-focus v-model="form.name" type="text" id="name" minlength="1" maxlength="99" required />
+      <input 
+        v-focus 
+        v-model.trim="form.name" 
+        type="text" id="name" 
+        name="name" minlength="1" 
+        maxlength="99" 
+        required
+        aria-required="true" 
+      />
     </div>
     <button>{{ buttonText || 'Create' }}</button>
   </form>
@@ -49,5 +57,9 @@ input{
 }
 label{
   font-weight: bold;
+}
+button{
+  font-size: 1rem;
+  margin-top: 2rem;
 }
 </style>

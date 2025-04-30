@@ -16,7 +16,7 @@
       <label for="reps">Reps</label>
       <input v-model="form.reps" class="time" id="reps" type="number" min="1" max="50" required />
     </div>
-    <slot><button>Create</button></slot>
+    <button>{{ btnString || 'Create'}}</button>
   </form>
 </template>
 
@@ -24,7 +24,8 @@
 import { ref } from 'vue'
 
 const props = defineProps({
-  formVals: { type: Object, required: false }
+  formVals: { type: Object, required: false },
+  btnString: String
 });
 
 
@@ -35,7 +36,7 @@ const form = ref({
   time: props.formVals?.time || 25,
   break: props.formVals?.break || 5,
   reps: props.formVals?.reps || 3,
-  completedReps: 0
+  completedReps: props.formVals?.completedReps || 0 
 });
 
 const vFocus = {
@@ -66,5 +67,9 @@ input{
 }
 label{
   font-weight: bold;
+}
+button{
+  font-size: 1rem;
+  margin-top: 2rem;
 }
 </style>

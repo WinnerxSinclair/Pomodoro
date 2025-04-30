@@ -1,21 +1,74 @@
 <template>
-  <Transition>
-    <div class="outer" v-if="showModal">
-      <div class="inner" @click.stop @mousedown.stop>
+  <Transition @after-leave="handleLeave">
+    <div ref="dialog" tabindex="-1" class="outer" v-if="showModal" @mousedown.self="$emit('close')" 
+      @keydown.esc.stop.prevent="$emit('close')" role="dialog" aria-modal="true" :aria-labelledby="ariaId"
+    >
+      <h2 :id="ariaId" class="hidden">{{ title }}</h2>
+      <div class="inner" >
         <slot />
       </div>
-      <div class="x"></div>
+      <button @click.stop="$emit('close')" class="x" aria-label="Close Modal"></button>
     </div>
   </Transition>
 </template>
 
 <script setup>
+import { ref, watch, useTemplateRef, watchEffect } from 'vue'
 const props = defineProps({
   showModal: {
-    type: Boolean,
+    type: Boolean,  
     default: false
+  },
+  title: String,
+  ariaId: String
+});
+
+
+const dialog = useTemplateRef('dialog');
+const emit = defineEmits(['close'])
+
+const opener = ref(null);
+watch(() => props.showModal, (newVal) => {
+  if(newVal) opener.value = document.activeElement;
+  else {
+    if (trap && dialog.value) {
+      dialog.value.removeEventListener('keydown', trap)
+    }
+    trap = null
+  }
+
+})
+
+function handleLeave(){
+  opener.value?.focus();
+}
+
+let trap = null;
+
+watchEffect(() => {
+  if(dialog.value){
+    // dialog.value.focus();
+    trap = (e) => {
+      if (e.key !== 'Tab') return 
+      const focusables = dialog.value.querySelectorAll('button, [href], input,' +
+        'select, textarea, [tabindex]:not([tabindex="-1"])')
+      const firstEl = focusables[0]
+      const lastEl  = focusables[focusables.length - 1]
+
+      if (e.shiftKey && e.target === firstEl) {        // Shift-Tab on first
+        e.preventDefault()
+        lastEl.focus()
+      } else if (!e.shiftKey && e.target === lastEl) { // Tab on last
+        e.preventDefault()
+        firstEl.focus()
+      }
+    }
+    dialog.value.addEventListener('keydown', trap);
+   
   }
 })
+
+
 </script>
 
 <style scoped>
@@ -31,14 +84,16 @@ const props = defineProps({
 .inner{
   margin-top: 5rem;
   height: fit-content;
-  width: clamp(350px, 50%, 450px);
+  width: clamp(350px, 40%, 450px);
   background:var(--accent-bg);
   border-radius: 1rem;
-  padding: 1vw 5vh;
-  padding-bottom: 3rem;
+  padding: 1rem 3rem 2rem 3rem;
   display:flex;
   justify-content: center;
   align-items: center;
+}
+.inner > :first-child{
+  width: 100%;
 }
 .x{
   position: absolute;
@@ -46,6 +101,8 @@ const props = defineProps({
   right: 5px;
   width: 60px;
   aspect-ratio: 1;
+  padding: 0;
+  background: transparent;
 }
 .x::before, .x::after{
   content:'';
